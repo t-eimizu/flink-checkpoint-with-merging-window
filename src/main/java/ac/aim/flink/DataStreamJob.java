@@ -135,6 +135,8 @@ public class DataStreamJob {
 			public void process(String key, ProcessWindowFunction<String, String, String, TimeWindow>.Context context,
 					Iterable<String> elements, Collector<String> out) throws Exception {
 				if (stPreviousValue == null) {
+					// windowState() in session window is not supported.
+					// stPreviousValue = context.windowState().getState(desc4PreviousValue);
 					stPreviousValue = context.globalState().getState(desc4PreviousValue);
 				}
 
